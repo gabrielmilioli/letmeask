@@ -1,14 +1,36 @@
-import { Link } from 'react-router-dom';
+import { FormEvent, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
 
 import '../assets/styles/auth.scss';
 import { Button } from '../components/Button';
 import useAuth from '../hooks/useAuth';
+import { database, ref, push } from '../services/firebase';
 
 
 export function NewRoom() {
   const { user } = useAuth();
+  const history = useHistory();
+
+  const [newRoom, setNewRoom] = useState('');
+
+  const handleCreateRoom = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (newRoom.trim() === '') {
+      return;
+    }
+
+    const roomRef = ref(database, 'rooms');
+
+    const firebaseRoom = await push(roomRef, {
+      title: newRoom,
+      authorId: user?.id
+    });
+
+    history.push(`/rooms/${firebaseRoom.key}`);
+  }
 
   return (
     <div id="page-auth">
@@ -21,10 +43,12 @@ export function NewRoom() {
         <div className="main-content">
           <img src={logoImg} alt="Logo do Letmeask" />
           <h2>Criar uma nova sala</h2>
-          <form action="">
+          <form onSubmit={handleCreateRoom}>
             <input
               type="text"
               placeholder="Nome da sala"
+              onChange={e => setNewRoom(e.target.value)}
+              value={newRoom}
             />
 
             <Button type="submit">Criar sala</Button>
