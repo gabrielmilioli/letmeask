@@ -106,6 +106,12 @@
 
     .question-list {
       margin-top: 32px;
+
+      > h1 {
+        margin-top: 64px;
+        text-align: center;
+        color: #737380;
+      }
     }
   }
 }

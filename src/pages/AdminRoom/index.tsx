@@ -58,7 +58,7 @@ export function AdminRoom() {
             <Button
               isOutlined
               onClick={handleEndRoom}>
-              Encerrar sala
+              Close room
             </Button>
           </div>
         </div>
@@ -66,8 +66,8 @@ export function AdminRoom() {
 
       <main>
         <div className="room-title">
-          <h1>Sala {title}</h1>
-          {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
+          <h1>Room {title}</h1>
+          {questions.length > 0 && <span>{questions.length} question(s)</span>}
         </div>
 
         <div className="question-list">
@@ -100,6 +100,9 @@ export function AdminRoom() {
               </Question>
             )
           })}
+          {!questions.length &&
+            <h1>Oops... no questions have been submitted yet.</h1>
+          }
         </div>
 
       </main>

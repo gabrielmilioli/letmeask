@@ -40,7 +40,7 @@ export function Home() {
     }
 
     if (roomResponse.val().closedAt) {
-      alert('Room already closed');
+      alert('Room is already closed');
       return;
     }
 
@@ -50,30 +50,30 @@ export function Home() {
   return (
     <div id="page-auth">
       <aside>
-        <img src={illustrationImg} alt="Ilustração simbolizando perguntas e respostas" />
-        <strong>Crie salas de Q&amp;A ao vivo</strong>
-        <p>Tire as dúvidas da sua audiência em tempo real</p>
+        <img src={illustrationImg} alt="Illustration symbolizing questions and answers" />
+        <strong>Create live Q&amp;A rooms</strong>
+        <p>Ask your audience questions in real time</p>
       </aside>
       <main>
         <div className="main-content">
-          <img src={logoImg} alt="Logo do Letmeask" />
+          <img src={logoImg} alt="Letmeask logo" />
 
           <button className="create-room" onClick={handleCreateRoom}>
-            <img src={googleIconImg} alt="Logo do Google" />
-            Crie sua sala com o Google
+            <img src={googleIconImg} alt="Google logo" />
+            Create your room with Google
           </button>
 
-          <div className="separator">ou entre em uma sala</div>
+          <div className="separator">or enter a room</div>
 
           <form onSubmit={handleJoinRoom}>
             <input
               type="text"
-              placeholder="Digite o código da sala"
+              placeholder="Enter room code"
               onChange={e => setRoomCode(e.target.value)}
               value={roomCode}
             />
 
-            <Button type="submit">Entrar na sala</Button>
+            <Button type="submit">Enter the room</Button>
           </form>
         </div>
       </main>
