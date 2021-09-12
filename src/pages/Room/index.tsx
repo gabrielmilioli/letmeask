@@ -1,13 +1,13 @@
-import logoImg from '../assets/images/logo.svg';
-import { Button } from '../components/Button';
-import '../assets/styles/room.scss';
-import { RoomCode } from '../components/RoomCode';
+import logoImg from 'assets/images/logo.svg';
+import { Button } from '../../components/Button';
+import 'assets/styles/room.scss';
+import { RoomCode } from '../../components/RoomCode';
 import { useParams } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
-import useAuth from '../hooks/useAuth';
-import { database, push, ref, remove } from '../services/firebase';
-import { Question } from '../components/Question';
-import useRoom from '../hooks/useRoom';
+import useAuth from '../../hooks/useAuth';
+import { database, push, ref, remove } from '../../services/firebase';
+import { Question } from '../../components/Question';
+import useRoom from '../../hooks/useRoom';
 
 type RoomParams = {
   id: string;
@@ -76,7 +76,7 @@ export function Room() {
       <main>
         <div className="room-title">
           <h1>Sala {title}</h1>
-          {questions.length && <span>{questions.length} pergunta(s)</span>}
+          {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
         </div>
 
         <form onSubmit={handleSendQuestion}>
