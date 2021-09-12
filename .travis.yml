@@ -1,23 +1,13 @@
 language: node_js
-warnings_are_errors: false
 node_js:
   - "14.17.0"
 before_script:
   - export CI=false
   - yarn add -D firebase-tools
+  - yarn build
 cache:
   yarn: true
   directories:
     - node_modules
-before_deploy:
-  - yarn build
-deploy:
-  provider: firebase
-  skip_cleanup: true
-  token:
-    secure: "1//0hDuV3q1eYiTuCgYIARAAGBESNwF-L9IrxDOh2VHXo0lnX504STf5cLPBrsDJjbKnJBNZj56WCvNhNgkcy--zzGCkmRPHLF5hA4o"
-  on:
-    branch: main
-env:
-  global:
-  - secure: "1//0hDuV3q1eYiTuCgYIARAAGBESNwF-L9IrxDOh2VHXo0lnX504STf5cLPBrsDJjbKnJBNZj56WCvNhNgkcy--zzGCkmRPHLF5hA4o"
+script:
+  - firebase deploy --only hosting --token "1//0hDuV3q1eYiTuCgYIARAAGBESNwF-L9IrxDOh2VHXo0lnX504STf5cLPBrsDJjbKnJBNZj56WCvNhNgkcy--zzGCkmRPHLF5hA4o"
