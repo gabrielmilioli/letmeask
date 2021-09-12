@@ -10,6 +10,7 @@ script:
   - yarn build
 deploy:
   provider: firebase
+  skip_cleanup: true
   token:
     secure: "1//0hDuV3q1eYiTuCgYIARAAGBESNwF-L9IrxDOh2VHXo0lnX504STf5cLPBrsDJjbKnJBNZj56WCvNhNgkcy--zzGCkmRPHLF5hA4o"
   on:
