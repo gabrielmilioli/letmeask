@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from 'react';
-import { GoogleAuthProvider, signInWithPopup, auth, onAuthStateChanged } from '../services/firebase';
+import { GoogleAuthProvider, signInWithPopup, auth, onAuthStateChanged } from 'services/firebase';
 
 type UserType = {
   id: string,

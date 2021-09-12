@@ -1,12 +1,12 @@
 import logoImg from 'assets/images/logo.svg';
 import 'assets/styles/room.scss';
 import { useHistory, useParams } from 'react-router-dom';
-import { Question } from '../../components/Question';
-import useRoom from '../../hooks/useRoom';
-import { RoomCode } from '../../components/RoomCode';
-import { Button } from '../../components/Button';
-import deleteImg from 'assets/images/delete.svg';
-import { database, ref, remove, update } from '../../services/firebase';
+import { Question } from 'components/Question';
+import useRoom from 'hooks/useRoom';
+import { RoomCode } from 'components/RoomCode';
+import { Button } from 'components/Button';
+import { database, ref, remove, update } from 'services/firebase';
+import { IconButton } from 'components/IconButton';
 
 type RoomParams = {
   id: string;
@@ -32,6 +32,20 @@ export function AdminRoom() {
       const questionRef = ref(database, `rooms/${roomId}/questions/${questionId}`);
       await remove(questionRef);
     }
+  }
+
+  const handleMarkQuestionAsAnswered = async (questionId: string) => {
+    const questionRef = ref(database, `rooms/${roomId}/questions/${questionId}`);
+    await update(questionRef, {
+      isAnswered: true
+    });
+  }
+
+  const handleHighlightQuestion = async (questionId: string) => {
+    const questionRef = ref(database, `rooms/${roomId}/questions/${questionId}`);
+    await update(questionRef, {
+      isHighlighted: true
+    });
   }
 
   return (
@@ -62,13 +76,27 @@ export function AdminRoom() {
               <Question
                 key={index}
                 content={question.content}
-                author={question.author}>
-                <button
+                author={question.author}
+                isHighlighted={question.isHighlighted}
+                isAnswered={question.isAnswered}>
+                {!question.isAnswered && <>
+                  <IconButton
+                    icon="check"
+                    title="Mark as answered"
+                    onClick={() => handleMarkQuestionAsAnswered(question.id)}
+                  />
+                  <IconButton
+                    icon="answer"
+                    title="Highlight question"
+                    onClick={() => handleHighlightQuestion(question.id)}
+                  />
+                </>}
+                <IconButton
+                  icon="delete"
+                  title="Delete question"
                   type="button"
                   onClick={() => handleDeleteQuestion(question.id)}
-                >
-                  <img src={deleteImg} alt="Delete question" />
-                </button>
+                />
               </Question>
             )
           })}
