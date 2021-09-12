@@ -1,15 +1,16 @@
 language: node_js
 node_js:
-  - "v14.17"
+  - "14.17.0"
 cache:
   directories:
     - node_modules
-jobs:
-  include:
-  - stage: test
-    script:
-    - yarn install
-    - yarn build
-  - stage: deploy
-    if: branch = main
-    script: firebase deploy
+install:
+  - yarn install
+script:
+  - yarn build
+deploy:
+  provider: firebase
+  toke:
+    secure: "1//0hDuV3q1eYiTuCgYIARAAGBESNwF-L9IrxDOh2VHXo0lnX504STf5cLPBrsDJjbKnJBNZj56WCvNhNgkcy--zzGCkmRPHLF5hA4o"
+on:
+  branch: main
